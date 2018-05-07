@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import Word from './Word.js'
 import Filter from './Filter.js'
+import Form from './Form.js'
+import Header from './Header.js';
 
 class Main extends Component {
     getWordList() {
@@ -16,7 +18,9 @@ class Main extends Component {
     render() {
         return (
             <View style={{ backgroundColor: "yellow", flex: 1, alignSelf: "stretch", justifyContent: "center" }}>
-                <View style={{ flex: 5 }}>
+                <Header />
+                <View style={{ flex: 5, alignItems: 'center' }}>
+                    {this.props.isAdding ? <Form /> : null}
                     <FlatList
                         data={this.getWordList()}
                         renderItem={({ item }) => <Word myWord={item} />}
@@ -24,7 +28,7 @@ class Main extends Component {
                     />
                 </View>
                 <Filter />
-            </View>
+            </View >
         );
     }
 }
@@ -32,7 +36,8 @@ class Main extends Component {
 function mapState(state) {
     return {
         myFilter: state.filterStatus,
-        arrWord: state.arrWord
+        arrWord: state.arrWord,
+        isAdding: state.isAdding
     }
 }
 

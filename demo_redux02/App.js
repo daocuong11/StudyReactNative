@@ -54,11 +54,35 @@ const reducer = (state = defaultState, action) => {
       return { ...state, filterStatus: 'NEED_PRACTICE' };
     case 'MEMORIZED':
       return {
-        ...state, 
+        ...state,
         arrWord: state.arrWord.map(e => {
           if (e.id !== action.id) return e;
           return { ...e, memorized: !e.memorized };
         })
+      };
+    case 'DISPLAY_WORD':
+      return {
+        ...state,
+        arrWord: state.arrWord.map(e => {
+          if (e.id !== action.id) return e;
+          return { ...e, isShow: !e.isShow };
+        })
+      };
+    case 'ISADD':
+      return {
+        ...state,
+        isAdding: !state.isAdding
+      };
+    case 'Add_Word':
+      return {
+        ...state,
+        arrWord: state.arrWord.concat({
+          en: action.en,
+          vn: action.vn,
+          isShow: false,
+          memorized: false
+        }),
+        isAdding: false
       }
   }
   return state;

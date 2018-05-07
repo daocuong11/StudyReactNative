@@ -10,19 +10,27 @@ class Word extends Component {
         });
     }
 
+    showWord() {
+        this.props.dispatch({
+            type: 'DISPLAY_WORD',
+            id: this.props.myWord.id
+        });
+    }
+
     render() {
-        const { vn, en, memorized } = this.props.myWord;
+        const { vn, en, memorized, isShow } = this.props.myWord;
         const textDecorationLine = memorized ? 'line-through' : 'none';
         const memorizedText = memorized ? 'forget' : 'memorized';
+        const meaning = isShow ? vn : '-----';
         return (
             <View style={styles.container}>
                 <Text style={{ textDecorationLine }}>{en}</Text>
-                <Text>{vn}</Text>
+                <Text>{meaning}</Text>
                 <View style={styles.controller}>
                     <TouchableOpacity onPress={this.memorizedWord.bind(this)}>
                         <Text>{memorizedText}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.showWord.bind(this)}>
                         <Text>show</Text>
                     </TouchableOpacity>
                 </View>
